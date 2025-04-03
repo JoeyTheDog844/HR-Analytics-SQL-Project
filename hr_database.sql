@@ -44,3 +44,36 @@ INSERT INTO Attendance VALUES
 (7, 102, '2025-03-31', 'Present'),
 (8, 103, '2025-03-31', 'Present'); 
 
+SELECT Employees.Name, Departments.DepartmentName
+FROM Employees
+JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID;
+
+SELECT Departments.DepartmentName, AVG(Employees.Salary) AS AvgSalary
+FROM Employees
+JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID
+GROUP BY Departments.DepartmentName;
+
+SELECT Departments.DepartmentName, COUNT(*) AS NumEmployees
+FROM Employees
+JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID
+GROUP BY Departments.DepartmentName;
+
+SELECT Employees.Name
+FROM Employees
+JOIN Attendance ON Employees.EmpID = Attendance.EmpID
+WHERE Attendance.Date = '2025-03-30'
+  AND Attendance.Status = 'Present';
+
+SELECT Date, COUNT(*) AS NumPresent
+FROM Attendance
+WHERE Status = 'Present'
+GROUP BY Date;
+
+SELECT Departments.DepartmentName, COUNT(*) AS NumPresent
+FROM Employees
+JOIN Attendance ON Employees.EmpID = Attendance.EmpID
+JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID
+WHERE Attendance.Date = '2025-03-30'
+  AND Attendance.Status = 'Present'
+GROUP BY Departments.DepartmentName;
+
